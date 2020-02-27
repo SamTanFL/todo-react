@@ -15,7 +15,7 @@ class App extends React.Component {
         this.setState({words:event.target.value})
     }
 
-    clickHandler() {
+    clickAdd() {
         this.state.toDo.push(this.state.words)
         let list = this.state.toDo
         this.setState(
@@ -26,11 +26,20 @@ class App extends React.Component {
         )
     }
 
+    clickRemove(index) {
+        this.state.toDo.splice(index, 1)
+        let list = this.state.toDo
+        this.setState({toDo: list})
+    }
+
   render() {
-    let index = 0
-    const doElements = this.state.toDo.map(listItem => {
-        index++
-        return <li key={index - 1}>{listItem}</li>
+    const doElements = this.state.toDo.map((listItem, index) => {
+        return (
+            <div>
+                <li key={index}>{listItem}</li>
+                <button onClick={()=>{ this.clickRemove(index) }}>Remove from List</button>
+            </div>
+            );
     })
 
     return (
@@ -39,7 +48,7 @@ class App extends React.Component {
             <h1>{this.state.word}</h1>
             <input onChange={(event)=>{this.changeHandler(event);}} value={this.state.words} />
         </div>
-        <button onClick={()=>{ this.clickHandler() }}>Add to To-Do List</button>
+        <button onClick={()=>{ this.clickAdd() }}>Add to To-Do List</button>
         <div className="todo">
             <ol>
                 {doElements}
