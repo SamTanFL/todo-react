@@ -7,23 +7,38 @@ class App extends React.Component {
         super();
         this.state = {
             toDo: [],
-            words: ""
+            words: "",
+            error: ""
         }
     }
 
     changeHandler(event) {
+        if (this.state.words.length > 200) {
+            this.setState({error: "TYPING TOO MUCH DUDE!!!!!!"})
+        } else {
+            this.setState({error: ""})
+        }
         this.setState({words:event.target.value})
+
     }
 
     clickAdd() {
-        this.state.toDo.push(this.state.words)
-        let list = this.state.toDo
-        this.setState(
-            {
-                toDo: list,
-                words:""
+        if (this.state.words.length <= 200 && this.state.words.length >= 1) {
+            this.state.toDo.push(this.state.words)
+            let list = this.state.toDo
+            this.setState(
+                {
+                    toDo: list,
+                    words:""
+                }
+            )
+        } else {
+            if (this.state.words.length < 1) {
+                this.setState({error: "TOO SHORT SHORTY"})
+            } else if (this.state.words.length > 200) {
+                this.setState({error: "TOO LONG WINDED DUDE"})
             }
-        )
+        }
     }
 
     clickRemove(index) {
@@ -47,6 +62,7 @@ class App extends React.Component {
         <div className="item">
             <h1>{this.state.word}</h1>
             <input onChange={(event)=>{this.changeHandler(event);}} value={this.state.words} />
+            <small>{this.state.error}</small>
         </div>
         <button onClick={()=>{ this.clickAdd() }}>Add to To-Do List</button>
         <div className="todo">
