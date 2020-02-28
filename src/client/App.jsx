@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import { hot } from 'react-hot-loader';
 
 class App extends React.Component {
@@ -50,10 +50,10 @@ class App extends React.Component {
   render() {
     const doElements = this.state.toDo.map((listItem, index) => {
         return (
-            <div>
+            <>
                 <li key={index}>{listItem}</li>
                 <button onClick={()=>{ this.clickRemove(index) }}>Remove from List</button>
-            </div>
+            </>
             );
     })
 
