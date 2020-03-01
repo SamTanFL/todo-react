@@ -23,10 +23,8 @@ class App extends React.Component {
     addData(data) {
         let entry = data
         const entries = [ entry, ...this.state.entries ]
-        console.log(entries)
         this.setState( { entries } )
     }
-
 
 
     render() {
